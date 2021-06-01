@@ -20,7 +20,7 @@ public class Follow {
     @GeneratedValue
     private Long id;
     @OneToOne
-    private User followed;
-    @OneToOne
     private User follower;
+    @OneToOne
+    private User followed;
 }
