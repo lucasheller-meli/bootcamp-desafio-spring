@@ -1,16 +1,23 @@
 package com.desafio.entities;
 
-import lombok.Data;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Map;
+
 
 @Data
+@Builder
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class User{
     private String userName;
     @Id
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idUser;
+    @ElementCollection
+    private Map<Long, String> following;
 
 
 }

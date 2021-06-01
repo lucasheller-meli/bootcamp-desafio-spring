@@ -1,7 +1,7 @@
 package com.desafio.repository;
 
-import lombok.Data;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.desafio.entities.User;
 
-@Data
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 }
