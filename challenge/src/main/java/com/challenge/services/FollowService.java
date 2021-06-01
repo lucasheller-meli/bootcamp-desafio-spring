@@ -1,5 +1,8 @@
 package com.challenge.services;
 
+import com.challenge.dtos.FollowedResponse;
+import com.challenge.dtos.FollowersCountResponse;
+import com.challenge.dtos.FollowersResponse;
 import com.challenge.entities.Follow;
 import com.challenge.entities.User;
 import com.challenge.exceptions.AlreadyFollowing;
@@ -10,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +32,40 @@ public class FollowService {
         followRepository.save(Follow.builder().follower(follower).followed(followed).build());
     }
 
-    public List<Follow> followers(Long userId) {
+    public FollowersCountResponse followersCount(Long userId) throws UserNotFound {
+        User user = userService.findById(userId);
+
+        return FollowersCountResponse.builder()
+                .userId(userId)
+                .userName(user.getName())
+                .followersCount(findAllByFollowedId(userId).size())
+                .build();
+    }
+
+    public FollowersResponse followers(Long userId) throws UserNotFound {
+        User user = userService.findById(userId);
+
+        return FollowersResponse.builder()
+                .userId(userId)
+                .userName(user.getName())
+                .followers(findAllByFollowedId(userId).stream().map(Follow::getFollower).collect(Collectors.toList()))
+                .build();
+    }
+
+    public FollowedResponse followed(Long userId) throws UserNotFound {
+        User user = userService.findById(userId);
+
+        return FollowedResponse.builder()
+                .userId(userId)
+                .userName(user.getName())
+                .followed(findAllByFollowerId(userId).stream().map(Follow::getFollowed).collect(Collectors.toList()))
+                .build();
+    }
+
+    private List<Follow> findAllByFollowedId(Long userId) {
         return followRepository.findAllByFollowedId(userId);
+    }
+    private List<Follow> findAllByFollowerId(Long userId) {
+        return followRepository.findAllByFollowerId(userId);
     }
 }

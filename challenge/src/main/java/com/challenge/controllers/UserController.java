@@ -1,7 +1,9 @@
 package com.challenge.controllers;
 
-import com.challenge.dtos.CreateUserDTO;
-import com.challenge.entities.Follow;
+import com.challenge.dtos.CreateUserRequest;
+import com.challenge.dtos.FollowedResponse;
+import com.challenge.dtos.FollowersCountResponse;
+import com.challenge.dtos.FollowersResponse;
 import com.challenge.entities.User;
 import com.challenge.exceptions.AlreadyFollowing;
 import com.challenge.exceptions.SelfFollow;
@@ -28,8 +30,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserDTO createUserDTO) {
-        return ResponseEntity.ok(userService.save(createUserDTO));
+    public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
+        return ResponseEntity.ok(userService.save(createUserRequest));
     }
 
     @PostMapping("/{followerId}/follow/{followedId}")
@@ -38,11 +40,18 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    // US 0002
+    @GetMapping("/{userId}/followers/count")
+    public ResponseEntity<FollowersCountResponse> followersCount(@PathVariable Long userId) throws UserNotFound {
+        return ResponseEntity.ok(followService.followersCount(userId));
+    }
 
-    // US 0003 - FALTA RETORNAR O OBJETO CERTO E OUTROS STATUS CODES
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<List<Follow>> followers(@PathVariable Long userId) {
+    public ResponseEntity<FollowersResponse> followers(@PathVariable Long userId) throws UserNotFound {
         return ResponseEntity.ok(followService.followers(userId));
+    }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<FollowedResponse> followed(@PathVariable Long userId) throws UserNotFound {
+        return ResponseEntity.ok(followService.followed(userId));
     }
 }

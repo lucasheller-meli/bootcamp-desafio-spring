@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
-public class CreateUserDTO {
+public class CreateUserRequest {
     @NotNull
     @Size(min = 2, max = 200)
     private String name;

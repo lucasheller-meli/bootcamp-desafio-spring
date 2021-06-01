@@ -1,6 +1,6 @@
 package com.challenge.services;
 
-import com.challenge.dtos.CreateUserDTO;
+import com.challenge.dtos.CreateUserRequest;
 import com.challenge.entities.User;
 import com.challenge.exceptions.UserNotFound;
 import com.challenge.repositories.UserRepository;
@@ -24,7 +24,7 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFound(id));
     }
 
-    public User save(CreateUserDTO createUserDTO) {
-        return userRepository.save(User.builder().name(createUserDTO.getName()).build());
+    public User save(CreateUserRequest createUserRequest) {
+        return userRepository.save(User.builder().name(createUserRequest.getName()).build());
     }
 }
