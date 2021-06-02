@@ -41,7 +41,8 @@ public class PostService {
     }
 
     public FollowedPostsResponse followedPosts(Long userId) throws UserNotFound {
-        List<Long> followedIds = followService.followed(userId).getFollowed().stream().map(User::getId).collect(Collectors.toList());
+        User user = userService.findById(userId);
+        List<Long> followedIds = followService.followedUserIds(userId);
 
         List<Post> posts = postRepository.findAllByUserIdInOrderByDateDesc(followedIds)
                 .stream()
@@ -50,6 +51,7 @@ public class PostService {
 
         return FollowedPostsResponse.builder()
                 .userId(userId)
+                .userName(user.getName())
                 .posts(posts)
                 .build();
     }

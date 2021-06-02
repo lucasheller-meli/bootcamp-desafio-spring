@@ -46,13 +46,13 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersResponse> followers(@PathVariable Long userId) throws UserNotFound {
-        return ResponseEntity.ok(followService.followers(userId));
+    public ResponseEntity<FollowersResponse> followers(@PathVariable Long userId, @RequestParam(required = false) String order) throws UserNotFound {
+        return ResponseEntity.ok(followService.followers(userId, order));
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedResponse> followed(@PathVariable Long userId) throws UserNotFound {
-        return ResponseEntity.ok(followService.followed(userId));
+    public ResponseEntity<FollowedResponse> followed(@PathVariable Long userId, @RequestParam(required = false) String order) throws UserNotFound {
+        return ResponseEntity.ok(followService.followed(userId, order));
     }
 
     @PostMapping("/{followerId}/unfollow/{followedId}")

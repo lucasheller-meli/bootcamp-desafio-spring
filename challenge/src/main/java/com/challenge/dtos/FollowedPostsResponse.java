@@ -10,5 +10,6 @@ import java.util.List;
 @Builder
 public class FollowedPostsResponse {
     private Long userId;
+    private String userName;
     private List<Post> posts;
 }

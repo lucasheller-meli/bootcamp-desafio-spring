@@ -9,12 +9,14 @@ import com.challenge.exceptions.AlreadyFollowing;
 import com.challenge.exceptions.SelfFollow;
 import com.challenge.exceptions.UserNotFound;
 import com.challenge.repositories.FollowRepository;
+import com.challenge.sorting.user.FollowListUserSorterFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -43,23 +45,25 @@ public class FollowService {
                 .build();
     }
 
-    public FollowersResponse followers(Long userId) throws UserNotFound {
+    public FollowersResponse followers(Long userId, String order) throws UserNotFound {
         User user = userService.findById(userId);
+        List<User> followers = FollowListUserSorterFactory.create(order).sort(findAllByFollowedId(userId).stream().map(Follow::getFollower));
 
         return FollowersResponse.builder()
                 .userId(userId)
                 .userName(user.getName())
-                .followers(findAllByFollowedId(userId).stream().map(Follow::getFollower).collect(Collectors.toList()))
+                .followers(followers)
                 .build();
     }
 
-    public FollowedResponse followed(Long userId) throws UserNotFound {
+    public FollowedResponse followed(Long userId, String order) throws UserNotFound {
         User user = userService.findById(userId);
+        List<User> followed = FollowListUserSorterFactory.create(order).sort(followedStream(userId));
 
         return FollowedResponse.builder()
                 .userId(userId)
                 .userName(user.getName())
-                .followed(findAllByFollowerId(userId).stream().map(Follow::getFollowed).collect(Collectors.toList()))
+                .followed(followed)
                 .build();
     }
 
@@ -67,6 +71,13 @@ public class FollowService {
         findByFollowerIdAndFollowedId(followerId, followedId).ifPresent(followRepository::delete);
     }
 
+    public List<Long> followedUserIds(Long userId) {
+        return followedStream(userId).map(User::getId).collect(Collectors.toList());
+    }
+
+    private Stream<User> followedStream(Long userId) {
+        return findAllByFollowerId(userId).stream().map(Follow::getFollowed);
+    }
     private Optional<Follow> findByFollowerIdAndFollowedId(Long followerId, Long followedId) {
         return followRepository.findByFollowerIdAndFollowedId(followerId, followedId);
     }
