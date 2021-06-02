@@ -1,8 +1,6 @@
 package com.challenge.controllers;
 
-import com.challenge.dtos.CreatePostRequest;
-import com.challenge.dtos.CreatePromotionalPostRequest;
-import com.challenge.dtos.FollowedPostsResponse;
+import com.challenge.dtos.*;
 import com.challenge.entities.Post;
 import com.challenge.entities.Product;
 import com.challenge.entities.PromotionalPost;
@@ -55,5 +53,15 @@ public class ProductController {
     public ResponseEntity<Void> createPromotionalPost(@RequestBody @Valid CreatePromotionalPostRequest createPostRequest) throws UserNotFound {
         promotionalPostService.create(createPostRequest);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{userId}/promotional/count")
+    public ResponseEntity<PromotionalPostsCountResponse> promotionalPostsCount(@PathVariable Long userId) throws UserNotFound {
+        return ResponseEntity.ok(promotionalPostService.promotionalPostsCount(userId));
+    }
+
+    @GetMapping("/{userId}/promotional/list")
+    public ResponseEntity<PromotionalPostsResponse> promotionalPosts(@PathVariable Long userId) throws UserNotFound {
+        return ResponseEntity.ok(promotionalPostService.promotionalPosts(userId));
     }
 }
