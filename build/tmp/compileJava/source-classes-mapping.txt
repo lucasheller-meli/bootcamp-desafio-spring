@@ -1,50 +1,78 @@
-com/bootcamp/challenge/controllers/UserController.java
- com.bootcamp.challenge.controllers.UserController
-com/bootcamp/challenge/services/UserService.java
- com.bootcamp.challenge.services.UserService
-com/bootcamp/challenge/entities/UserType.java
- com.bootcamp.challenge.entities.UserType
+com/bootcamp/challenge/controllers/response/UserFollowedResponse.java
+ com.bootcamp.challenge.controllers.response.UserFollowedResponse
+ com.bootcamp.challenge.controllers.response.UserFollowedResponse$UserFollowedResponseBuilder
+ com.bootcamp.challenge.controllers.response.UserFollowedResponse$UserFollowedResponseBuilderImpl
+com/bootcamp/challenge/repositories/ProductRepository.java
+ com.bootcamp.challenge.repositories.ProductRepository
+com/bootcamp/challenge/ChallengeApplication.java
+ com.bootcamp.challenge.ChallengeApplication
+com/bootcamp/challenge/repositories/PublicationRepository.java
+ com.bootcamp.challenge.repositories.PublicationRepository
+com/bootcamp/challenge/controllers/response/UserFollowersResponse.java
+ com.bootcamp.challenge.controllers.response.UserFollowersResponse
+ com.bootcamp.challenge.controllers.response.UserFollowersResponse$UserFollowersResponseBuilder
+ com.bootcamp.challenge.controllers.response.UserFollowersResponse$UserFollowersResponseBuilderImpl
+com/bootcamp/challenge/controllers/request/PublicationRequest.java
+ com.bootcamp.challenge.controllers.request.PublicationRequest
+com/bootcamp/challenge/exceptions/InvalidUserTypeForOperationException.java
+ com.bootcamp.challenge.exceptions.InvalidUserTypeForOperationException
+com/bootcamp/challenge/services/PublicationService.java
+ com.bootcamp.challenge.services.PublicationService
+com/bootcamp/challenge/controllers/FollowController.java
+ com.bootcamp.challenge.controllers.FollowController
+com/bootcamp/challenge/exceptions/handler/RestExceptionHandler.java
+ com.bootcamp.challenge.exceptions.handler.RestExceptionHandler
+com/bootcamp/challenge/controllers/request/UserCreateRequest.java
+ com.bootcamp.challenge.controllers.request.UserCreateRequest
 com/bootcamp/challenge/exceptions/NotFoundException.java
  com.bootcamp.challenge.exceptions.NotFoundException
 com/bootcamp/challenge/repositories/UserRepository.java
  com.bootcamp.challenge.repositories.UserRepository
-com/bootcamp/challenge/exceptions/handler/RestExceptionHandler.java
- com.bootcamp.challenge.exceptions.handler.RestExceptionHandler
+com/bootcamp/challenge/controllers/response/UserResponse.java
+ com.bootcamp.challenge.controllers.response.UserResponse
+ com.bootcamp.challenge.controllers.response.UserResponse$UserResponseBuilder
+ com.bootcamp.challenge.controllers.response.UserResponse$UserResponseBuilderImpl
+com/bootcamp/challenge/controllers/request/ProductRequest.java
+ com.bootcamp.challenge.controllers.request.ProductRequest
+com/bootcamp/challenge/config/SwaggerConfig.java
+ com.bootcamp.challenge.config.SwaggerConfig
+com/bootcamp/challenge/entities/UserType.java
+ com.bootcamp.challenge.entities.UserType
+com/bootcamp/challenge/entities/ProductEntity.java
+ com.bootcamp.challenge.entities.ProductEntity
+ com.bootcamp.challenge.entities.ProductEntity$ProductEntityBuilder
+com/bootcamp/challenge/controllers/ProductController.java
+ com.bootcamp.challenge.controllers.ProductController
+com/bootcamp/challenge/services/ProductService.java
+ com.bootcamp.challenge.services.ProductService
+com/bootcamp/challenge/services/impl/ProductServiceImpl.java
+ com.bootcamp.challenge.services.impl.ProductServiceImpl
+com/bootcamp/challenge/controllers/UserController.java
+ com.bootcamp.challenge.controllers.UserController
+com/bootcamp/challenge/repositories/FollowRepository.java
+ com.bootcamp.challenge.repositories.FollowRepository
+com/bootcamp/challenge/entities/PublicationEntity.java
+ com.bootcamp.challenge.entities.PublicationEntity
+ com.bootcamp.challenge.entities.PublicationEntity$PublicationEntityBuilder
 com/bootcamp/challenge/services/impl/UserServiceImpl.java
  com.bootcamp.challenge.services.impl.UserServiceImpl
 com/bootcamp/challenge/entities/UserEntity.java
  com.bootcamp.challenge.entities.UserEntity
  com.bootcamp.challenge.entities.UserEntity$UserEntityBuilder
-com/bootcamp/challenge/entities/FollowEntity.java
- com.bootcamp.challenge.entities.FollowEntity
- com.bootcamp.challenge.entities.FollowEntity$FollowEntityBuilder
-com/bootcamp/challenge/controllers/request/UserCreateRequest.java
- com.bootcamp.challenge.controllers.request.UserCreateRequest
-com/bootcamp/challenge/config/SwaggerConfig.java
- com.bootcamp.challenge.config.SwaggerConfig
-com/bootcamp/challenge/exceptions/InvalidTypeToFollowException.java
- com.bootcamp.challenge.exceptions.InvalidTypeToFollowException
-com/bootcamp/challenge/controllers/PingController.java
- com.bootcamp.challenge.controllers.PingController
-com/bootcamp/challenge/ChallengeApplication.java
- com.bootcamp.challenge.ChallengeApplication
-com/bootcamp/challenge/controllers/FollowController.java
- com.bootcamp.challenge.controllers.FollowController
-com/bootcamp/challenge/services/impl/FollowServiceImpl.java
- com.bootcamp.challenge.services.impl.FollowServiceImpl
-com/bootcamp/challenge/controllers/response/UserFollowersResponse.java
- com.bootcamp.challenge.controllers.response.UserFollowersResponse
- com.bootcamp.challenge.controllers.response.UserFollowersResponse$UserFollowersResponseBuilder
- com.bootcamp.challenge.controllers.response.UserFollowersResponse$UserFollowersResponseBuilderImpl
 com/bootcamp/challenge/controllers/response/UserCountFollowersResponse.java
  com.bootcamp.challenge.controllers.response.UserCountFollowersResponse
  com.bootcamp.challenge.controllers.response.UserCountFollowersResponse$UserCountFollowersResponseBuilder
  com.bootcamp.challenge.controllers.response.UserCountFollowersResponse$UserCountFollowersResponseBuilderImpl
+com/bootcamp/challenge/entities/FollowEntity.java
+ com.bootcamp.challenge.entities.FollowEntity
+ com.bootcamp.challenge.entities.FollowEntity$FollowEntityBuilder
+com/bootcamp/challenge/services/impl/FollowServiceImpl.java
+ com.bootcamp.challenge.services.impl.FollowServiceImpl
 com/bootcamp/challenge/services/FollowService.java
  com.bootcamp.challenge.services.FollowService
-com/bootcamp/challenge/repositories/FollowRepository.java
- com.bootcamp.challenge.repositories.FollowRepository
-com/bootcamp/challenge/controllers/response/UserResponse.java
- com.bootcamp.challenge.controllers.response.UserResponse
- com.bootcamp.challenge.controllers.response.UserResponse$UserResponseBuilder
- com.bootcamp.challenge.controllers.response.UserResponse$UserResponseBuilderImpl
+com/bootcamp/challenge/services/UserService.java
+ com.bootcamp.challenge.services.UserService
+com/bootcamp/challenge/services/impl/PublicationServiceImpl.java
+ com.bootcamp.challenge.services.impl.PublicationServiceImpl
+com/bootcamp/challenge/controllers/PublicationController.java
+ com.bootcamp.challenge.controllers.PublicationController

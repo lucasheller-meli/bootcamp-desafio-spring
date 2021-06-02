@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @SuperBuilder
 public class UserFollowersResponse extends UserResponse{
-    List<UserResponse> followersUsers;
 
+    List<UserResponse> followersUsers;
 
 }

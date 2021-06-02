@@ -1,6 +1,7 @@
 package com.bootcamp.challenge.services;
 
 import com.bootcamp.challenge.controllers.response.UserCountFollowersResponse;
+import com.bootcamp.challenge.controllers.response.UserFollowedResponse;
 import com.bootcamp.challenge.controllers.response.UserFollowersResponse;
 
 public interface FollowService {
@@ -10,6 +11,8 @@ public interface FollowService {
     UserCountFollowersResponse countFollowers(Integer userId);
 
     UserFollowersResponse listFollowers(Integer userId);
+
+    UserFollowedResponse listFollowed(Integer userId);
 
 
 

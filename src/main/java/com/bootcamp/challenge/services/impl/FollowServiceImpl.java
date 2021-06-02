@@ -1,12 +1,13 @@
 package com.bootcamp.challenge.services.impl;
 
 import com.bootcamp.challenge.controllers.response.UserCountFollowersResponse;
+import com.bootcamp.challenge.controllers.response.UserFollowedResponse;
 import com.bootcamp.challenge.controllers.response.UserFollowersResponse;
 import com.bootcamp.challenge.controllers.response.UserResponse;
 import com.bootcamp.challenge.entities.FollowEntity;
 import com.bootcamp.challenge.entities.UserEntity;
 import com.bootcamp.challenge.entities.UserType;
-import com.bootcamp.challenge.exceptions.InvalidTypeToFollowException;
+import com.bootcamp.challenge.exceptions.InvalidUserTypeForOperationException;
 import com.bootcamp.challenge.repositories.FollowRepository;
 import com.bootcamp.challenge.services.FollowService;
 import com.bootcamp.challenge.services.UserService;
@@ -28,13 +29,13 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     public void followUser(Integer userFollowerId, Integer userFollowedId) {
-    final UserEntity followerUser = userService.findById(userFollowerId);
-    final UserEntity followedUser = userService.findById(userFollowedId);
+        final UserEntity followerUser = userService.findById(userFollowerId);
+        final UserEntity followedUser = userService.findById(userFollowedId);
 
         validateUserType(followedUser, UserType.SELLER);
 
-    final FollowEntity followEntity = FollowEntity.builder().followed(followedUser).follower(followerUser).build();
-    followRepository.save(followEntity);
+        final FollowEntity followEntity = FollowEntity.builder().followed(followedUser).follower(followerUser).build();
+        followRepository.save(followEntity);
     }
 
     @Override
@@ -48,25 +49,43 @@ public class FollowServiceImpl implements FollowService {
     @Override
     public UserFollowersResponse listFollowers(Integer userId) {
         final UserEntity userEntity = userService.findById(userId);
-        validateUserType(userEntity, UserType.SELLER);
-        final List<FollowEntity> followEntity = followRepository.findAllByFollowedIs(userEntity);
+        //validateUserType(userEntity, UserType.SELLER);
+        final List<FollowEntity> followEntity = followRepository.findAllByFollowed_Id(userEntity.getId());
 
         final List<UserResponse> userResponses = new ArrayList<>();
-                followEntity.forEach(f -> userResponses.add(UserResponse.builder()
+        followEntity.forEach(f -> userResponses.add(UserResponse.builder()
                         .id(f.getFollower().getId())
                         .name(f.getFollower().getName())
                         .build()));
         return UserFollowersResponse
                 .builder()
                 .id(userEntity.getId())
+                .name(userEntity.getName())
                 .followersUsers(userResponses)
+                .build();
+    }
+
+    @Override
+    public UserFollowedResponse listFollowed(Integer userId) {
+        final UserEntity userEntity = userService.findById(userId);
+        final List<FollowEntity> followEntity = followRepository.findAllByFollower_Id(userEntity.getId());
+        final List<UserResponse> userResponses = new ArrayList<>();
+        followEntity.forEach(f -> userResponses.add(UserResponse.builder()
+                .id(f.getFollowed().getId())
+                .name(f.getFollowed().getName())
+                .build()));
+        return UserFollowedResponse
+                .builder()
+                .id(userEntity.getId())
+                .name(userEntity.getName())
+                .followedUsers(userResponses)
                 .build();
     }
 
 
     private void validateUserType(UserEntity userEntity, UserType userType){
          if(!userType.equals(userEntity.getType())){
-             throw new InvalidTypeToFollowException("Usuário nao pode ser do tipo "+userEntity.getType());
+             throw new InvalidUserTypeForOperationException("Usuário nao pode ser do tipo "+userEntity.getType());
          }
     }
 }
