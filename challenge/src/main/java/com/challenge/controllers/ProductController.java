@@ -1,12 +1,15 @@
 package com.challenge.controllers;
 
 import com.challenge.dtos.CreatePostRequest;
+import com.challenge.dtos.CreatePromotionalPostRequest;
 import com.challenge.dtos.FollowedPostsResponse;
 import com.challenge.entities.Post;
 import com.challenge.entities.Product;
+import com.challenge.entities.PromotionalPost;
 import com.challenge.exceptions.UserNotFound;
 import com.challenge.services.PostService;
 import com.challenge.services.ProductService;
+import com.challenge.services.PromotionalPostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final PostService postService;
+    private final PromotionalPostService promotionalPostService;
     private final ProductService productService;
 
     @GetMapping
@@ -32,7 +36,7 @@ public class ProductController {
     }
 
     @PostMapping("/new/post")
-    public ResponseEntity<Void> createPostAndProduct(@RequestBody @Valid CreatePostRequest createPostRequest) throws UserNotFound {
+    public ResponseEntity<Void> createPost(@RequestBody @Valid CreatePostRequest createPostRequest) throws UserNotFound {
         postService.create(createPostRequest);
         return ResponseEntity.ok().build();
     }
@@ -40,5 +44,16 @@ public class ProductController {
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<FollowedPostsResponse> followedPosts(@PathVariable Long userId, @RequestParam(required = false) String order) throws UserNotFound {
         return ResponseEntity.ok(postService.followedPosts(userId, order));
+    }
+
+    @GetMapping("/promotional/posts")
+    public ResponseEntity<List<PromotionalPost>> findAllPromotionalPosts() {
+        return ResponseEntity.ok(promotionalPostService.findAll());
+    }
+
+    @PostMapping("/new/promotional/post")
+    public ResponseEntity<Void> createPromotionalPost(@RequestBody @Valid CreatePromotionalPostRequest createPostRequest) throws UserNotFound {
+        promotionalPostService.create(createPostRequest);
+        return ResponseEntity.ok().build();
     }
 }

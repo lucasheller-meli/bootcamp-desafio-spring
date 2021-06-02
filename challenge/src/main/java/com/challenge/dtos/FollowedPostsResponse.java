@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Builder
 public class FollowedPostsResponse {
-    private Long userId;
-    private String userName;
-    private List<Post> posts;
+    private final Long userId;
+    private final String userName;
+    private final List<Post> posts;
 }

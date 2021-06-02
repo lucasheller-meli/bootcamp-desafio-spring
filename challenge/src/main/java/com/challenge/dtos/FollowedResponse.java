@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Builder
 public class FollowedResponse {
-    private Long userId;
-    private String userName;
-    private List<User> followed;
+    private final Long userId;
+    private final String userName;
+    private final List<User> followed;
 }

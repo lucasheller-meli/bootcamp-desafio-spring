@@ -9,5 +9,5 @@ public enum PostSortOption {
     DATE_ASCENDING("date_asc"),
     DATE_DESCENDING("date_desc");
 
-    private String option;
+    private final String option;
 }

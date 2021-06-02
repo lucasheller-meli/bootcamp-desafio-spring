@@ -1,9 +1,9 @@
 package com.challenge.entities;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
 
-@Data
 @Entity
-@Builder
+@Getter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
