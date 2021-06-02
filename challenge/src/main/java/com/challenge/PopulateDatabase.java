@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -65,14 +66,20 @@ public class PopulateDatabase implements CommandLineRunner {
         ));
 
         postRepository.saveAll(List.of(
-                Post.builder().user(rodrigo).product(cadeira).category(1).price(1000.0).build(),
-                Post.builder().user(marianne).product(cadeira).category(1).price(800.0).build(),
-                Post.builder().user(lucas).product(cadeira).category(1).price(1200.0).build(),
-                Post.builder().user(rodrigo).product(fone).category(3).price(500.0).build(),
-                Post.builder().user(carolina).product(monitor).category(6).price(2152.20).build(),
-                Post.builder().user(pedro).product(mesa).category(23).price(3000.0).build(),
-                Post.builder().user(thamirez).product(notebook).category(99).price(30329.0).build(),
-                Post.builder().user(jose).product(notebook).category(99).price(28329.0).build()
+                Post.builder().user(rodrigo).product(cadeira).category(1).price(1000.0).date(LocalDate.now()).build(),
+                Post.builder().user(rodrigo).product(cadeira).category(1).price(1200.0).date(LocalDate.now().minusDays(1)).build(),
+                Post.builder().user(rodrigo).product(cadeira).category(1).price(1800.0).date(LocalDate.now().minusWeeks(2)).build(),
+                Post.builder().user(marianne).product(cadeira).category(1).price(800.0).date(LocalDate.now()).build(),
+                Post.builder().user(marianne).product(cadeira).category(1).price(900.0).date(LocalDate.now().minusDays(3)).build(),
+                Post.builder().user(marianne).product(cadeira).category(1).price(1900.0).date(LocalDate.now().minusWeeks(2)).build(),
+                Post.builder().user(lucas).product(cadeira).category(1).price(1200.0).date(LocalDate.now()).build(),
+                Post.builder().user(lucas).product(cadeira).category(1).price(1400.0).date(LocalDate.now().minusDays(5)).build(),
+                Post.builder().user(lucas).product(cadeira).category(1).price(1700.0).date(LocalDate.now().minusWeeks(2)).build(),
+                Post.builder().user(rodrigo).product(fone).category(3).price(500.0).date(LocalDate.now()).build(),
+                Post.builder().user(carolina).product(monitor).category(6).price(2152.20).date(LocalDate.now().minusDays(1)).build(),
+                Post.builder().user(pedro).product(mesa).category(23).price(3000.0).date(LocalDate.now()).build(),
+                Post.builder().user(thamirez).product(notebook).category(99).price(30329.0).date(LocalDate.now().minusDays(7)).build(),
+                Post.builder().user(jose).product(notebook).category(99).price(28329.0).date(LocalDate.now()).build()
         ));
     }
 }

@@ -23,7 +23,6 @@ public class Post {
     private Long id;
     @OneToOne
     private User user;
-    @CreationTimestamp
     private LocalDate date;
     @OneToOne
     private Product product;

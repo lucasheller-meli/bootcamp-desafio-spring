@@ -1,6 +1,7 @@
 package com.challenge.controllers;
 
 import com.challenge.dtos.CreatePostRequest;
+import com.challenge.dtos.FollowedPostsResponse;
 import com.challenge.entities.Post;
 import com.challenge.entities.Product;
 import com.challenge.exceptions.UserNotFound;
@@ -34,5 +35,10 @@ public class ProductController {
     public ResponseEntity<Void> createPostAndProduct(@RequestBody @Valid CreatePostRequest createPostRequest) throws UserNotFound {
         postService.create(createPostRequest);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<FollowedPostsResponse> followedPosts(@PathVariable Long userId) throws UserNotFound {
+        return ResponseEntity.ok(postService.followedPosts(userId));
     }
 }
