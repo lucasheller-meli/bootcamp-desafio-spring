@@ -54,4 +54,10 @@ public class UserController {
     public ResponseEntity<FollowedResponse> followed(@PathVariable Long userId) throws UserNotFound {
         return ResponseEntity.ok(followService.followed(userId));
     }
+
+    @PostMapping("/{followerId}/unfollow/{followedId}")
+    public ResponseEntity<Void> unfollow(@PathVariable Long followerId, @PathVariable Long followedId) {
+        followService.unfollow(followerId, followedId);
+        return ResponseEntity.ok().build();
+    }
 }

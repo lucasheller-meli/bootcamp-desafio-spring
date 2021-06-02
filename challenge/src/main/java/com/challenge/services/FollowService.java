@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +25,7 @@ public class FollowService {
     public void follow(Long followerId, Long followedId) throws UserNotFound, SelfFollow, AlreadyFollowing {
         if (followerId.equals(followedId)) throw new SelfFollow(followerId);
 
-        boolean isAlreadyFollowing = followRepository.findByFollowerIdAndFollowedId(followerId, followedId).isPresent();
+        boolean isAlreadyFollowing = findByFollowerIdAndFollowedId(followerId, followedId).isPresent();
         if (isAlreadyFollowing) throw new AlreadyFollowing(followerId, followedId);
 
         User follower = userService.findById(followerId);
@@ -62,6 +63,13 @@ public class FollowService {
                 .build();
     }
 
+    public void unfollow(Long followerId, Long followedId) {
+        findByFollowerIdAndFollowedId(followerId, followedId).ifPresent(followRepository::delete);
+    }
+
+    private Optional<Follow> findByFollowerIdAndFollowedId(Long followerId, Long followedId) {
+        return followRepository.findByFollowerIdAndFollowedId(followerId, followedId);
+    }
     private List<Follow> findAllByFollowedId(Long userId) {
         return followRepository.findAllByFollowedId(userId);
     }
