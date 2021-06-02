@@ -38,7 +38,7 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPostsResponse> followedPosts(@PathVariable Long userId) throws UserNotFound {
-        return ResponseEntity.ok(postService.followedPosts(userId));
+    public ResponseEntity<FollowedPostsResponse> followedPosts(@PathVariable Long userId, @RequestParam(required = false) String order) throws UserNotFound {
+        return ResponseEntity.ok(postService.followedPosts(userId, order));
     }
 }

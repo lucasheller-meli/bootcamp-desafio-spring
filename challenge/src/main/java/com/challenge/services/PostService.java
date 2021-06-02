@@ -7,6 +7,7 @@ import com.challenge.entities.Product;
 import com.challenge.entities.User;
 import com.challenge.exceptions.UserNotFound;
 import com.challenge.repositories.PostRepository;
+import com.challenge.sorting.post.PostSortOption;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,19 +41,19 @@ public class PostService {
                 .build());
     }
 
-    public FollowedPostsResponse followedPosts(Long userId) throws UserNotFound {
+    public FollowedPostsResponse followedPosts(Long userId, String order) throws UserNotFound {
         User user = userService.findById(userId);
         List<Long> followedIds = followService.followedUserIds(userId);
 
-        List<Post> posts = postRepository.findAllByUserIdInOrderByDateDesc(followedIds)
-                .stream()
-                .filter(post -> post.getDate().isAfter(LocalDate.now().minusWeeks(WEEKS_TO_SHOW)))
-                .collect(Collectors.toList());
+        List<Post> posts;
+
+        if (PostSortOption.DATE_ASCENDING.getOption().equals(order)) posts = postRepository.findAllByUserIdInOrderByDateAsc(followedIds);
+        else posts = postRepository.findAllByUserIdInOrderByDateDesc(followedIds);
 
         return FollowedPostsResponse.builder()
                 .userId(userId)
                 .userName(user.getName())
-                .posts(posts)
+                .posts(posts.stream().filter(post -> post.getDate().isAfter(LocalDate.now().minusWeeks(WEEKS_TO_SHOW))).collect(Collectors.toList()))
                 .build();
     }
 
