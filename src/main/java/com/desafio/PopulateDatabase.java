@@ -1,10 +1,7 @@
 package com.desafio;
 
-import com.desafio.dtos.PostDTO;
-import com.desafio.entities.Posters;
 import com.desafio.entities.Seller;
 import com.desafio.entities.User;
-import com.desafio.repository.PostRepository;
 import com.desafio.repository.SellerRepository;
 import com.desafio.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +16,6 @@ public class PopulateDatabase implements CommandLineRunner {
 
         private final UserRepository userRepository;
         private final SellerRepository sellerRepository;
-        private final PostRepository postRepository;
 
 
     public void run(String... args) {
@@ -31,7 +27,6 @@ public class PopulateDatabase implements CommandLineRunner {
             Seller pedro = Seller.builder().nameSaler("Pedro").build();
             Seller jose = Seller.builder().nameSaler("José").build();
             Seller maria = Seller.builder().nameSaler("Maria").build();
-            Posters posters1 = Posters.builder().build();
 
             userRepository.saveAll(List.of(
                     rodrigo, marianne, thamirez, lucas

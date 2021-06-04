@@ -5,9 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Map;
 
 @Data
@@ -17,9 +16,10 @@ import java.util.Map;
 @NoArgsConstructor
 public class Posters {
     @Id
-    private Long idPost; //como gerar isso automaticamente
-    private Long idSaler;
-    private String date;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idPost;
+    private Long idSeller;
+    private LocalDate date;
     private Integer category;
     @ElementCollection
     private Map<String, String> detail;
