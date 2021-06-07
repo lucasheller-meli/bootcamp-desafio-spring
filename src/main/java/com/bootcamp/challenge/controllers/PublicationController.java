@@ -2,8 +2,10 @@ package com.bootcamp.challenge.controllers;
 
 import com.bootcamp.challenge.controllers.request.PublicationRequest;
 import com.bootcamp.challenge.controllers.response.FollowedPublicationResponse;
+import com.bootcamp.challenge.controllers.response.PublicationCountResponse;
+import com.bootcamp.challenge.controllers.response.PublicationResponse;
 import com.bootcamp.challenge.services.PublicationService;
-import org.springframework.data.domain.Pageable;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/publication")
@@ -30,6 +33,7 @@ public class PublicationController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Cria uma publicacao.")
     public ResponseEntity<Void> createPublication(@Valid @RequestBody PublicationRequest publicationRequest) {
         final Integer publicationId = publicationService.createPublication(publicationRequest);
         final URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(publicationId).toUri();
@@ -37,17 +41,34 @@ public class PublicationController {
     }
 
     @GetMapping("/followed/{userId}")
+    @ApiOperation(value = "Lista todas as publicacoes de todos os vendedores que o usuario segue.")
     public ResponseEntity<FollowedPublicationResponse> listPublicationOfMyFollowedSellers(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
                                                                                           @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
                                                                                           @RequestParam(value = "orderBy", required = false, defaultValue = "createDate") String orderBy,
+                                                                                          @RequestParam(value = "hasPromo", required = false, defaultValue = "false") Boolean hasPromo,
                                                                                           @RequestParam(value = "direction", required = false, defaultValue = "DESC") Sort.Direction direction,
                                                                                           @PathVariable(value = "userId") Integer userId) {
 
-        return ResponseEntity.ok(publicationService.findAllProductsFromFollowed(userId,page,pageSize,orderBy,direction));
+        return ResponseEntity.ok(publicationService.findAllProductsFromFollowed(userId, page, pageSize, orderBy, hasPromo, direction));
     }
 
+    @GetMapping("/count/{userId}")
+    @ApiOperation(value = "Conta a quantidade de publicacao de um usuario.")
+    public ResponseEntity<PublicationCountResponse> countPublications(@PathVariable(value = "userId") Integer userId,
+                                                                      @RequestParam(value = "hasPromo", required = false, defaultValue = "false") Boolean hasPromo) {
+        return ResponseEntity.ok(publicationService.countPublication(userId,hasPromo));
+    }
 
+    @GetMapping("/{userId}")
+    @ApiOperation(value = "Lista as publicacoes de um usuario.")
+    public ResponseEntity<List<PublicationResponse>> listPublicationByUserId(@PathVariable(value = "userId") Integer userId,
+                                                                             @RequestParam(value = "hasPromo", required = false, defaultValue = "false") Boolean hasPromo,
+                                                                             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                                                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+                                                                             @RequestParam(value = "direction", required = false, defaultValue = "DESC") Sort.Direction direction) {
 
+        return ResponseEntity.ok(publicationService.findAll(userId, hasPromo, page,pageSize));
+    }
 
 
 }

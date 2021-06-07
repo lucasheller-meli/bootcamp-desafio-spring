@@ -9,8 +9,10 @@ import java.util.List;
 
 public interface PublicationRepository extends JpaRepository<PublicationEntity, Integer> {
 
-    List<PublicationEntity> findAllByCreateDateIsGreaterThanEqual(Pageable pageable, LocalDateTime createDate);
+    Long countAllByUser_IdAndHasPromo(Integer userId, Boolean hasPromo);
 
-    List<PublicationEntity> findAllByUser_IdInAndCreateDateIsGreaterThanEqual(Pageable pageable, List<Integer> userId, LocalDateTime createDate);
+    List<PublicationEntity> findAllByUser_IdAndHasPromo(Pageable pageable, Integer userId, Boolean hasPromo);
+
+    List<PublicationEntity> findAllByUser_IdInAndCreateDateIsGreaterThanEqualAndHasPromo(Pageable pageable, List<Integer> userId, LocalDateTime createDate, Boolean hasPromo);
 
 }

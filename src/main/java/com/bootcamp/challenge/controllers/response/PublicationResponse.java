@@ -18,6 +18,8 @@ public class PublicationResponse {
     private Integer userId;
     private LocalDateTime createDate;
     private ProductResponse productResponse;
+    private Boolean hasPromo;
+    private BigDecimal discount;
     private Integer category;
     private BigDecimal price;
 
@@ -31,6 +33,8 @@ public class PublicationResponse {
                 .id(publicationEntity.getId())
                 .userId(publicationEntity.getUser().getId())
                 .createDate(publicationEntity.getCreateDate())
+                .discount(publicationEntity.getDiscount())
+                .hasPromo(publicationEntity.getHasPromo())
                 .productResponse(ProductResponse.of(publicationEntity.getProduct()))
                 .category(publicationEntity.getCategory())
                 .price(publicationEntity.getPrice())

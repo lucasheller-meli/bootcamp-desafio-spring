@@ -2,6 +2,7 @@ package com.bootcamp.challenge.controllers;
 
 import com.bootcamp.challenge.controllers.request.ProductRequest;
 import com.bootcamp.challenge.services.ProductService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ public class ProductController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Criar um produto.")
     public ResponseEntity<Void> createProduct(@Valid @RequestBody ProductRequest productRequest) {
         final Integer productId = productService.createProduct(productRequest);
         final URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(productId).toUri();

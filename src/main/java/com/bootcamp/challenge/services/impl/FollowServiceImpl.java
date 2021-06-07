@@ -37,7 +37,7 @@ public class FollowServiceImpl implements FollowService {
 
         validateUserType(followedUser, UserType.SELLER);
         verifyIfUsersAreDifferents(followedUser.getId(), followerUser.getId());
-        verifyIfUsersFollowEachOther(followerUser.getId(), followerUser.getId());
+        verifyIfUsersFollowEachOther(followerUser.getId(), followedUser.getId());
 
         final FollowEntity followEntity = FollowEntity.builder().followed(followedUser).follower(followerUser).build();
         followRepository.save(followEntity);
@@ -118,7 +118,6 @@ public class FollowServiceImpl implements FollowService {
     }
 
     private void verifyIfUsersFollowEachOther(Integer followerId, Integer followedId) {
-
         if (followRepository.existsByFollower_IdAndFollowed_Id(followerId, followedId)) {
             throw new FollowingException("Usuários ja se seguem.");
         }

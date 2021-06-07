@@ -25,7 +25,7 @@ public class PublicationRequest {
     @ApiModelProperty(value = "Categoria da publicacao")
     private Integer category;
 
-    @NotNull(message = "O campo de promocao é obrigatorio.")
+    @NotNull(message = "O desconto nao pode ser nulo. Caso nao tenha desconto colocar 0.")
     @ApiModelProperty(value = "Categoria da publicacao")
     private BigDecimal discount;
 
