@@ -26,8 +26,8 @@ public class PromotionalPostService {
     }
 
     public void create(CreatePromotionalPostRequest createPostRequest) throws UserNotFound {
-        Product product = productService.create(createPostRequest.getProduct());
         User user = userService.findById(createPostRequest.getUserId());
+        Product product = productService.create(createPostRequest.getProduct());
 
         save(PromotionalPost.builder()
                 .product(product)
