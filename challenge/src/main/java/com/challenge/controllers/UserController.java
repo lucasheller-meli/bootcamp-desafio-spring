@@ -7,6 +7,7 @@ import com.challenge.dtos.FollowersResponse;
 import com.challenge.entities.User;
 import com.challenge.exceptions.AlreadyFollowing;
 import com.challenge.exceptions.SelfFollow;
+import com.challenge.exceptions.SellerNotFound;
 import com.challenge.exceptions.UserNotFound;
 import com.challenge.services.FollowService;
 import com.challenge.services.UserService;
@@ -31,23 +32,23 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
-        return ResponseEntity.ok(userService.save(createUserRequest));
+        return ResponseEntity.ok(userService.create(createUserRequest));
     }
 
     @PostMapping("/{followerId}/follow/{followedId}")
-    public ResponseEntity<Void> follow(@PathVariable Long followerId, @PathVariable Long followedId) throws UserNotFound, SelfFollow, AlreadyFollowing {
+    public ResponseEntity<Void> follow(@PathVariable Long followerId, @PathVariable Long followedId) throws UserNotFound, SellerNotFound, SelfFollow, AlreadyFollowing {
         followService.follow(followerId, followedId);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<FollowersCountResponse> followersCount(@PathVariable Long userId) throws UserNotFound {
-        return ResponseEntity.ok(followService.followersCount(userId));
+    @GetMapping("/{sellerId}/followers/count")
+    public ResponseEntity<FollowersCountResponse> followersCount(@PathVariable Long sellerId) throws SellerNotFound {
+        return ResponseEntity.ok(followService.followersCount(sellerId));
     }
 
-    @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersResponse> followers(@PathVariable Long userId, @RequestParam(required = false) String order) throws UserNotFound {
-        return ResponseEntity.ok(followService.followers(userId, order));
+    @GetMapping("/{sellerId}/followers/list")
+    public ResponseEntity<FollowersResponse> followers(@PathVariable Long sellerId, @RequestParam(required = false) String order) throws SellerNotFound {
+        return ResponseEntity.ok(followService.followers(sellerId, order));
     }
 
     @GetMapping("/{userId}/followed/list")

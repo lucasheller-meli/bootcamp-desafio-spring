@@ -21,7 +21,7 @@ public class Post {
     @GeneratedValue
     private Long id;
     @OneToOne
-    private User user;
+    private Seller seller;
     private LocalDate date;
     @OneToOne
     private Product product;

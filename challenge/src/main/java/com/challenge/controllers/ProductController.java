@@ -4,6 +4,7 @@ import com.challenge.dtos.*;
 import com.challenge.entities.Post;
 import com.challenge.entities.Product;
 import com.challenge.entities.PromotionalPost;
+import com.challenge.exceptions.SellerNotFound;
 import com.challenge.exceptions.UserNotFound;
 import com.challenge.services.PostService;
 import com.challenge.services.ProductService;
@@ -34,7 +35,7 @@ public class ProductController {
     }
 
     @PostMapping("/new/post")
-    public ResponseEntity<Void> createPost(@RequestBody @Valid CreatePostRequest createPostRequest) throws UserNotFound {
+    public ResponseEntity<Void> createPost(@RequestBody @Valid CreatePostRequest createPostRequest) throws SellerNotFound {
         postService.create(createPostRequest);
         return ResponseEntity.ok().build();
     }
@@ -50,18 +51,18 @@ public class ProductController {
     }
 
     @PostMapping("/new/promotional/post")
-    public ResponseEntity<Void> createPromotionalPost(@RequestBody @Valid CreatePromotionalPostRequest createPostRequest) throws UserNotFound {
+    public ResponseEntity<Void> createPromotionalPost(@RequestBody @Valid CreatePromotionalPostRequest createPostRequest) throws SellerNotFound {
         promotionalPostService.create(createPostRequest);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{userId}/promotional/count")
-    public ResponseEntity<PromotionalPostsCountResponse> promotionalPostsCount(@PathVariable Long userId) throws UserNotFound {
-        return ResponseEntity.ok(promotionalPostService.promotionalPostsCount(userId));
+    @GetMapping("/{sellerId}/promotional/count")
+    public ResponseEntity<PromotionalPostsCountResponse> promotionalPostsCount(@PathVariable Long sellerId) throws SellerNotFound {
+        return ResponseEntity.ok(promotionalPostService.promotionalPostsCount(sellerId));
     }
 
-    @GetMapping("/{userId}/promotional/list")
-    public ResponseEntity<PromotionalPostsResponse> promotionalPosts(@PathVariable Long userId) throws UserNotFound {
-        return ResponseEntity.ok(promotionalPostService.promotionalPosts(userId));
+    @GetMapping("/{sellerId}/promotional/list")
+    public ResponseEntity<PromotionalPostsResponse> promotionalPosts(@PathVariable Long sellerId) throws SellerNotFound {
+        return ResponseEntity.ok(promotionalPostService.promotionalPosts(sellerId));
     }
 }

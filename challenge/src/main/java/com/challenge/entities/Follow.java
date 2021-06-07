@@ -22,5 +22,5 @@ public class Follow {
     @OneToOne
     private User follower;
     @OneToOne
-    private User followed;
+    private Seller followed;
 }

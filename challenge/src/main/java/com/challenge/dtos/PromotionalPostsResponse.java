@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Builder
 public class PromotionalPostsResponse {
-    private final Long userId;
-    private final String userName;
+    private final Long sellerId;
+    private final String sellerName;
     private final List<PromotionalPost> promotionalPosts;
 }

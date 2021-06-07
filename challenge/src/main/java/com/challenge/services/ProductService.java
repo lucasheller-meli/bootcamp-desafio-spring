@@ -18,16 +18,12 @@ public class ProductService {
     }
 
     public Product create(CreateProductRequest createProductRequest) {
-        return save(Product.builder()
+        return productRepository.save(Product.builder()
                 .name(createProductRequest.getName())
                 .type(createProductRequest.getType())
                 .brand(createProductRequest.getBrand())
                 .color(createProductRequest.getColor())
                 .note(createProductRequest.getNote())
                 .build());
-    }
-
-    private Product save(Product product) {
-        return productRepository.save(product);
     }
 }

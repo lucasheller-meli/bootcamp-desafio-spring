@@ -13,7 +13,7 @@ public class CreatePostRequest {
     private CreateProductRequest product;
     @NotNull
     @Positive
-    private Long userId;
+    private Long sellerId;
     @NotNull
     @Positive
     private Integer category;

@@ -4,9 +4,11 @@ import com.challenge.dtos.FollowedResponse;
 import com.challenge.dtos.FollowersCountResponse;
 import com.challenge.dtos.FollowersResponse;
 import com.challenge.entities.Follow;
+import com.challenge.entities.Seller;
 import com.challenge.entities.User;
 import com.challenge.exceptions.AlreadyFollowing;
 import com.challenge.exceptions.SelfFollow;
+import com.challenge.exceptions.SellerNotFound;
 import com.challenge.exceptions.UserNotFound;
 import com.challenge.repositories.FollowRepository;
 import com.challenge.sorting.user.FollowListUserSorterFactory;
@@ -23,42 +25,44 @@ import java.util.stream.Stream;
 public class FollowService {
     private final FollowRepository followRepository;
     private final UserService userService;
+    private final SellerService sellerService;
 
-    public void follow(Long followerId, Long followedId) throws UserNotFound, SelfFollow, AlreadyFollowing {
+    public void follow(Long followerId, Long followedId) throws UserNotFound, SellerNotFound, SelfFollow, AlreadyFollowing {
+        User follower = userService.findById(followerId);
+        Seller followed = sellerService.findById(followedId);
+
         if (followerId.equals(followedId)) throw new SelfFollow(followerId);
 
         boolean isAlreadyFollowing = findByFollowerIdAndFollowedId(followerId, followedId).isPresent();
         if (isAlreadyFollowing) throw new AlreadyFollowing(followerId, followedId);
 
-        User follower = userService.findById(followerId);
-        User followed = userService.findById(followedId);
         followRepository.save(Follow.builder().follower(follower).followed(followed).build());
     }
 
-    public FollowersCountResponse followersCount(Long userId) throws UserNotFound {
-        User user = userService.findById(userId);
+    public FollowersCountResponse followersCount(Long sellerId) throws SellerNotFound {
+        Seller seller = sellerService.findById(sellerId);
 
         return FollowersCountResponse.builder()
-                .userId(userId)
-                .userName(user.getName())
-                .followersCount(findAllByFollowedId(userId).size())
+                .sellerId(sellerId)
+                .sellerName(seller.getName())
+                .followersCount(findAllByFollowedId(sellerId).size())
                 .build();
     }
 
-    public FollowersResponse followers(Long userId, String order) throws UserNotFound {
-        User user = userService.findById(userId);
-        List<User> followers = FollowListUserSorterFactory.create(order).sort(findAllByFollowedId(userId).stream().map(Follow::getFollower));
+    public FollowersResponse followers(Long sellerId, String order) throws SellerNotFound {
+        Seller seller = sellerService.findById(sellerId);
+        List<User> followers = FollowListUserSorterFactory.create(order).sort(findAllByFollowedId(sellerId).stream().map(Follow::getFollower));
 
         return FollowersResponse.builder()
-                .userId(userId)
-                .userName(user.getName())
+                .sellerId(sellerId)
+                .sellerName(seller.getName())
                 .followers(followers)
                 .build();
     }
 
     public FollowedResponse followed(Long userId, String order) throws UserNotFound {
         User user = userService.findById(userId);
-        List<User> followed = FollowListUserSorterFactory.create(order).sort(followerStream(userId));
+        List<User> followed = FollowListUserSorterFactory.create(order).sort(followedStream(userId));
 
         return FollowedResponse.builder()
                 .userId(userId)
@@ -71,11 +75,11 @@ public class FollowService {
         findByFollowerIdAndFollowedId(followerId, followedId).ifPresent(followRepository::delete);
     }
 
-    public List<Long> followedUserIds(Long userId) {
-        return followerStream(userId).map(User::getId).collect(Collectors.toList());
+    public List<Long> followedSellerIds(Long userId) {
+        return followedStream(userId).map(User::getId).collect(Collectors.toList());
     }
 
-    private Stream<User> followerStream(Long userId) {
+    private Stream<User> followedStream(Long userId) {
         return findAllByFollowerId(userId).stream().map(Follow::getFollowed);
     }
     private Optional<Follow> findByFollowerIdAndFollowedId(Long followerId, Long followedId) {

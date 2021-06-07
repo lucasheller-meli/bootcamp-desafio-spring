@@ -5,8 +5,8 @@ import com.challenge.dtos.PromotionalPostsCountResponse;
 import com.challenge.dtos.PromotionalPostsResponse;
 import com.challenge.entities.Product;
 import com.challenge.entities.PromotionalPost;
-import com.challenge.entities.User;
-import com.challenge.exceptions.UserNotFound;
+import com.challenge.entities.Seller;
+import com.challenge.exceptions.SellerNotFound;
 import com.challenge.repositories.PromotionalPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,19 +19,19 @@ import java.util.List;
 public class PromotionalPostService {
     private final PromotionalPostRepository promotionalPostRepository;
     private final ProductService productService;
-    private final UserService userService;
+    private final SellerService sellerService;
 
     public List<PromotionalPost> findAll() {
         return promotionalPostRepository.findAll();
     }
 
-    public void create(CreatePromotionalPostRequest createPostRequest) throws UserNotFound {
-        User user = userService.findById(createPostRequest.getUserId());
+    public void create(CreatePromotionalPostRequest createPostRequest) throws SellerNotFound {
+        Seller seller = sellerService.findById(createPostRequest.getSellerId());
         Product product = productService.create(createPostRequest.getProduct());
 
-        save(PromotionalPost.builder()
+        promotionalPostRepository.save(PromotionalPost.builder()
                 .product(product)
-                .user(user)
+                .seller(seller)
                 .category(createPostRequest.getCategory())
                 .price(createPostRequest.getPrice())
                 .date(LocalDate.now())
@@ -40,30 +40,27 @@ public class PromotionalPostService {
                 .build());
     }
 
-    public PromotionalPostsCountResponse promotionalPostsCount(Long userId) throws UserNotFound {
-        User user = userService.findById(userId);
+    public PromotionalPostsCountResponse promotionalPostsCount(Long sellerId) throws SellerNotFound {
+        Seller seller = sellerService.findById(sellerId);
 
         return PromotionalPostsCountResponse.builder()
-                .userId(userId)
-                .userName(user.getName())
-                .promotionalPostsCount(findAllByUserId(userId).size())
+                .sellerId(sellerId)
+                .sellerName(seller.getName())
+                .promotionalPostsCount(findAllBySellerId(sellerId).size())
                 .build();
     }
 
-    public PromotionalPostsResponse promotionalPosts(Long userId) throws UserNotFound {
-        User user = userService.findById(userId);
+    public PromotionalPostsResponse promotionalPosts(Long sellerId) throws SellerNotFound {
+        Seller seller = sellerService.findById(sellerId);
 
         return PromotionalPostsResponse.builder()
-                .userId(userId)
-                .userName(user.getName())
-                .promotionalPosts(findAllByUserId(userId))
+                .sellerId(sellerId)
+                .sellerName(seller.getName())
+                .promotionalPosts(findAllBySellerId(sellerId))
                 .build();
     }
 
-    private void save(PromotionalPost post) {
-        promotionalPostRepository.save(post);
-    }
-    private List<PromotionalPost> findAllByUserId(Long userId) {
-        return promotionalPostRepository.findAllByUserId(userId);
+    private List<PromotionalPost> findAllBySellerId(Long sellerId) {
+        return promotionalPostRepository.findAllBySellerId(sellerId);
     }
 }
