@@ -13,7 +13,7 @@ public class FollowedPublicationResponse {
     private Integer userId;
     private List<PublicationResponse> publicationsResponses;
 
-    public static FollowedPublicationResponse of(Integer userId, List<PublicationEntity> publicationEntities){
+    public static FollowedPublicationResponse of(Integer userId, List<PublicationEntity> publicationEntities) {
         return FollowedPublicationResponse
                 .builder()
                 .userId(userId)

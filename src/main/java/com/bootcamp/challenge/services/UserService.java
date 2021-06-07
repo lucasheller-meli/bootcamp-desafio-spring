@@ -5,5 +5,6 @@ import com.bootcamp.challenge.entities.UserEntity;
 
 public interface UserService {
     Integer createUser(UserCreateRequest userRequest);
+
     UserEntity findById(Integer id);
 }

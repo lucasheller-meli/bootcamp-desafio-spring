@@ -2,6 +2,7 @@ package com.bootcamp.challenge.controllers;
 
 import com.bootcamp.challenge.controllers.request.UserCreateRequest;
 import com.bootcamp.challenge.services.impl.UserServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.net.URI;
 
 @Validated
 @RestController
+@Api(tags = {"Usuarios"})
 @RequestMapping("/user")
 public class UserController {
 

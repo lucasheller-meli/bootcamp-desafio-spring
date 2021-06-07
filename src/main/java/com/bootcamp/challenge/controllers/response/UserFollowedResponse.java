@@ -7,6 +7,6 @@ import java.util.List;
 
 @Data
 @SuperBuilder
-public class UserFollowedResponse extends UserResponse{
+public class UserFollowedResponse extends UserResponse {
     List<UserResponse> followedUsers;
 }

@@ -5,6 +5,7 @@ import com.bootcamp.challenge.controllers.response.FollowedPublicationResponse;
 import com.bootcamp.challenge.controllers.response.PublicationCountResponse;
 import com.bootcamp.challenge.controllers.response.PublicationResponse;
 import com.bootcamp.challenge.services.PublicationService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
@@ -23,6 +24,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@Api(tags = {"Publicacao"})
 @RequestMapping("/publication")
 public class PublicationController {
 

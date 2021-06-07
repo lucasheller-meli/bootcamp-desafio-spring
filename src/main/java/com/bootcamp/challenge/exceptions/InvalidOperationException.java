@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InvalidOperationException extends RuntimeException{
+public class InvalidOperationException extends RuntimeException {
     public InvalidOperationException(String message) {
         super(message);
     }

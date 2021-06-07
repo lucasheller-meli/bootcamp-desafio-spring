@@ -2,7 +2,6 @@ package com.bootcamp.challenge.services.impl;
 
 import com.bootcamp.challenge.controllers.request.ProductRequest;
 import com.bootcamp.challenge.entities.ProductEntity;
-import com.bootcamp.challenge.entities.UserEntity;
 import com.bootcamp.challenge.exceptions.NotFoundException;
 import com.bootcamp.challenge.repositories.ProductRepository;
 import com.bootcamp.challenge.services.ProductService;

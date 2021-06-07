@@ -77,7 +77,7 @@ public class PublicationServiceImpl implements PublicationService {
         final UserEntity userEntity = userService.findById(userId);
         verifyUserType(userEntity.getType());
         final PageRequest pageable = PageRequest.of(page, pageSize);
-        return PublicationResponse.of(publicationRepository.findAllByUser_IdAndHasPromo(pageable,userId,hasPromo));
+        return PublicationResponse.of(publicationRepository.findAllByUser_IdAndHasPromo(pageable, userId, hasPromo));
     }
 
     @Override

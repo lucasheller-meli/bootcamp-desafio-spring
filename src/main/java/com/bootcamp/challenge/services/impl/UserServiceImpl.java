@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    public Integer createUser(UserCreateRequest userCreateRequest){
+    public Integer createUser(UserCreateRequest userCreateRequest) {
         final UserEntity userEntity = convertRequestToEntity(userCreateRequest);
         return Optional.of(userEntity)
                 .map(userRepository::save)
@@ -28,10 +28,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity findById(Integer id) {
-        return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User de id "+id+" nao encontrado"));
+        return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User de id " + id + " nao encontrado"));
     }
 
-    private UserEntity convertRequestToEntity(UserCreateRequest userCreateRequest){
+    private UserEntity convertRequestToEntity(UserCreateRequest userCreateRequest) {
         return UserEntity.builder()
                 .name(userCreateRequest.getName())
                 .type(userCreateRequest.getType())

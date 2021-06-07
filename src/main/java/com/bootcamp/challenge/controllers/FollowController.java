@@ -4,6 +4,7 @@ import com.bootcamp.challenge.controllers.response.UserCountFollowersResponse;
 import com.bootcamp.challenge.controllers.response.UserFollowedResponse;
 import com.bootcamp.challenge.controllers.response.UserFollowersResponse;
 import com.bootcamp.challenge.services.FollowService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Api(tags = {"Seguir"})
 @RequestMapping("/follow")
 public class FollowController {
 
