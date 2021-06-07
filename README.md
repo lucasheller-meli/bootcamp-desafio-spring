@@ -34,7 +34,7 @@ vendedor.
 6. **US0006** - Obter uma lista das publicações feitas pelos vendedores que um usuário segue
 nas últimas duas semanas (para isso, ter em conta ordenação por data, a maioria das
 publicações recentes primeiro).
-  - POST http://localhost:8080/products/followed/{userId}/list
+  - GET http://localhost:8080/products/followed/{userId}/list
 
 7. **US0007** - Ser capaz de realizar a ação de “Deixar de seguir” (parar de seguir) um
 determinado vendedor.
