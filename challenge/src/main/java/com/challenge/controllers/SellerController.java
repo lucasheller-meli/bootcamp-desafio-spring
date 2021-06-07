@@ -17,12 +17,12 @@ public class SellerController {
     private final SellerService sellerService;
 
     @GetMapping
-    public ResponseEntity<List<Seller>> findAllUsers() {
+    public ResponseEntity<List<Seller>> findAllSellers() {
         return ResponseEntity.ok(sellerService.findAll());
     }
 
     @PostMapping
-    public ResponseEntity<Seller> createUser(@RequestBody @Valid CreateSellerRequest createSellerRequest) {
+    public ResponseEntity<Seller> createSeller(@RequestBody @Valid CreateSellerRequest createSellerRequest) {
         return ResponseEntity.ok(sellerService.create(createSellerRequest));
     }
 }
