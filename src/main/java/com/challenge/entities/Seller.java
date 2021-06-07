@@ -5,9 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Map;
 
 @Data
 @Entity
@@ -16,7 +15,15 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Seller {
     @Id
-    @GeneratedValue
-    private Long id;
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long sellerId;
+    private String sellerName;
+    @ElementCollection
+    private Map<Long, String> followed;
+    public void AddFollowed(Long userId, String userName){
+        this.followed.put(userId, userName);
+    }
+    public void removeFollowed(Long sellerId, String sellerName){
+        this.followed.remove(sellerId, sellerName);
+    }
 }

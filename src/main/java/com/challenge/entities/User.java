@@ -5,9 +5,8 @@ package com.challenge.entities;
         import lombok.Data;
         import lombok.NoArgsConstructor;
 
-        import javax.persistence.Entity;
-        import javax.persistence.GeneratedValue;
-        import javax.persistence.Id;
+        import javax.persistence.*;
+        import java.util.Map;
 
 @Data
 @Entity
@@ -15,8 +14,17 @@ package com.challenge.entities;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+
     @Id
-    @GeneratedValue
-    private Long id;
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+    private String userName;
+    @ElementCollection
+    private Map<Long, String> follower;
+    public void AddFollower(Long sellerId, String sellerName){
+        this.follower.put(sellerId, sellerName);
+    }
+    public void removeFollower(Long sellerId, String sellerName){
+        this.follower.remove(sellerId, sellerName);
+    }
 }
