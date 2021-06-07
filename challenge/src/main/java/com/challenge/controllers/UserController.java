@@ -23,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final FollowService followService;
 
     @GetMapping
     public ResponseEntity<List<User>> findAllUsers() {
@@ -33,32 +32,5 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
         return ResponseEntity.ok(userService.create(createUserRequest));
-    }
-
-    @PostMapping("/{followerId}/follow/{followedId}")
-    public ResponseEntity<Void> follow(@PathVariable Long followerId, @PathVariable Long followedId) throws UserNotFound, SellerNotFound, SelfFollow, AlreadyFollowing {
-        followService.follow(followerId, followedId);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{sellerId}/followers/count")
-    public ResponseEntity<FollowersCountResponse> followersCount(@PathVariable Long sellerId) throws SellerNotFound {
-        return ResponseEntity.ok(followService.followersCount(sellerId));
-    }
-
-    @GetMapping("/{sellerId}/followers/list")
-    public ResponseEntity<FollowersResponse> followers(@PathVariable Long sellerId, @RequestParam(required = false) String order) throws SellerNotFound {
-        return ResponseEntity.ok(followService.followers(sellerId, order));
-    }
-
-    @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedResponse> followed(@PathVariable Long userId, @RequestParam(required = false) String order) throws UserNotFound {
-        return ResponseEntity.ok(followService.followed(userId, order));
-    }
-
-    @PostMapping("/{followerId}/unfollow/{followedId}")
-    public ResponseEntity<Void> unfollow(@PathVariable Long followerId, @PathVariable Long followedId) {
-        followService.unfollow(followerId, followedId);
-        return ResponseEntity.ok().build();
     }
 }
