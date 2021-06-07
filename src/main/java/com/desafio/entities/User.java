@@ -19,5 +19,4 @@ public class User{
     @ElementCollection
     private Map<Long, String> following;
 
-
 }

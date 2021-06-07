@@ -3,6 +3,7 @@ package com.desafio.controller;
 import com.desafio.dtos.FollowDTO;
 import com.desafio.dtos.QuantityDTO;
 import com.desafio.exceptions.IdNotFound;
+import com.desafio.exceptions.NotFollow;
 import com.desafio.exceptions.NotSeller;
 import com.desafio.service.SellerService;
 import com.desafio.service.UserService;
@@ -20,9 +21,9 @@ public class UserController {
         this.sellerService = sellerService;
     }
 
-    @PostMapping("/{idUser}/follow/{idSaler}")
-    public ResponseEntity<Void> follow(@PathVariable Long idUser, @PathVariable Long idSaler) throws IdNotFound {
-        userService.follow(idUser, idSaler);
+    @PostMapping("/{idUser}/follow/{idSeller}")
+    public ResponseEntity<Void> follow(@PathVariable Long idUser, @PathVariable Long idSeller) throws IdNotFound {
+        userService.follow(idUser, idSeller);
         return ResponseEntity.ok().build();
     }
 
@@ -42,7 +43,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{idUser}/unfollow/{idSeller}")
-    public ResponseEntity<Void> unfollow(@PathVariable Long idUser, @PathVariable Long idSeller) throws NotSeller, IdNotFound{
+    public ResponseEntity<Void> unfollow(@PathVariable Long idUser, @PathVariable Long idSeller) throws IdNotFound, NotFollow{
         userService.unfollow(idUser, idSeller);
         return ResponseEntity.ok().build();
     }

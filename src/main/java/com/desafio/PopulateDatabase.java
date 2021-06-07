@@ -1,7 +1,9 @@
 package com.desafio;
 
+import com.desafio.entities.Posters;
 import com.desafio.entities.Seller;
 import com.desafio.entities.User;
+import com.desafio.repository.PostRepository;
 import com.desafio.repository.SellerRepository;
 import com.desafio.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ public class PopulateDatabase implements CommandLineRunner {
 
         private final UserRepository userRepository;
         private final SellerRepository sellerRepository;
+        private final PostRepository postRepository;
 
 
     public void run(String... args) {

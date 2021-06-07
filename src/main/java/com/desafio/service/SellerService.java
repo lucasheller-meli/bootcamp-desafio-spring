@@ -36,15 +36,15 @@ public class SellerService {
 
         Map<Long, String> mapFolloers = sellerRepository.getById(idSeller).getFollowers();
 
-        //ordena o map
-        Map<Long, String> result = userService.sortByValue(mapFolloers, order);
+        if(order!= null){
+            mapFolloers= userService.sortByValue(mapFolloers, order);
+        }
 
         return FollowDTO.builder().name(sellerRepository.getById(idSeller).getNameSaler())
                 .id(sellerRepository.getById(idSeller).getIdSaler())
-                .list(result)
+                .list(mapFolloers)
                 .build();
     }
-
 
     public Optional<Seller> findByIdSeller(Long idSeller){ return sellerRepository.findById(idSeller); }
 

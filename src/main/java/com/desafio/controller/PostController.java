@@ -3,6 +3,7 @@ package com.desafio.controller;
 import com.desafio.dtos.ListPostDTO;
 import com.desafio.dtos.PostDTO;
 import com.desafio.entities.Posters;
+import com.desafio.exceptions.IdNotFound;
 import com.desafio.exceptions.NotSeller;
 import com.desafio.service.PostService;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class PostController {
     }
 
     @GetMapping("/followed/{idUser}/list")
-    private ResponseEntity<ListPostDTO> listPost(@PathVariable Long idUser, @RequestParam(required = false) String order){
+    private ResponseEntity<ListPostDTO> listPost(@PathVariable Long idUser, @RequestParam(required = false) String order) throws IdNotFound {
         return ResponseEntity.ok(postService.listPosters(idUser, order));
     }
 }

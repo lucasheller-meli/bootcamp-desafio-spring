@@ -25,7 +25,7 @@ public class UserService {
 
     public void follow(Long idUser, Long idSeller) throws IdNotFound{
 
-        Seller seller = sellerRepository.findById(idSeller).orElseThrow(() -> new IdNotFound(idSeller)); //isso nao eh um boa pratica
+        Seller seller = sellerRepository.findById(idSeller).orElseThrow(() -> new IdNotFound(idSeller));
         User user = userRepository.findById(idUser).orElseThrow(() -> new IdNotFound(idUser));
 
         Map<Long, String> mapFollowing = new HashMap<>(user.getFollowing());
@@ -47,11 +47,14 @@ public class UserService {
         Map<Long, String> mapFollowing = new HashMap<>(userRepository.getById(idUser).getFollowing());
 
         //ordena o map
-        Map<Long, String> result = sortByValue(mapFollowing, order);
+        if(order!= null){
+            mapFollowing = sortByValue(mapFollowing, order);
+        }
+
 
         return FollowDTO.builder().name(userRepository.getById(idUser).getUserName())
                 .id(userRepository.getById(idUser).getIdUser())
-                .list(result)
+                .list(mapFollowing)
                 .build();
     }
 
@@ -86,15 +89,13 @@ public class UserService {
 
     }
 
-
-    public <Long, String extends Comparable<? super String>> Map<Long, String> sortByValue(Map<Long, String> map, String order){
+    public Map<Long, String> sortByValue(Map<Long, String> map, String order){
         List<Map.Entry<Long, String>> list = new ArrayList<>(map.entrySet());
-        Map<Long, String> result = new HashMap<>();
+        Map<Long, String> result = new TreeMap<>();
         //Ascedente 0 Descedente 1
         if (order.equals("name_asc")){
             list.sort(Map.Entry.comparingByValue());
-
-            result = new LinkedHashMap<>();
+            result = new TreeMap<>();
             for(Map.Entry<Long, String> entry : list){
                 result.put(entry.getKey(), entry.getValue());
             }

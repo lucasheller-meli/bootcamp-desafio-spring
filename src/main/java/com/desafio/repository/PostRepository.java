@@ -9,4 +9,5 @@ import java.util.Set;
 public interface PostRepository extends JpaRepository<Posters, Long> {
     List<Posters> findAllByIdSellerInOrderByDateAsc(Set<Long> idSellers);
     List<Posters> findAllByIdSellerInOrderByDateDesc(Set<Long> idSellers);
+
 }

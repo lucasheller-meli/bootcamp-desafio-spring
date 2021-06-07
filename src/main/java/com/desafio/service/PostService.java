@@ -52,7 +52,7 @@ public class PostService {
 
 
     public ListPostDTO listPosters(Long idUser, String order) throws IdNotFound {
-        User user = userRepository.getById(idUser);
+        User user = userRepository.findById(idUser).orElseThrow(() -> new IdNotFound(idUser));
         Map<Long, String> mapFollowing = user.getFollowing();
         List<Posters> listPost = new ArrayList<>();
 
