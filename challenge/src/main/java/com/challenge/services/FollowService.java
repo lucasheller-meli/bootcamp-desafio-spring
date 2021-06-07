@@ -51,7 +51,7 @@ public class FollowService {
 
     public FollowersResponse followers(Long sellerId, String order) throws SellerNotFound {
         Seller seller = sellerService.findById(sellerId);
-        List<User> followers = FollowListUserSorterFactory.create(order).sort(findAllByFollowedId(sellerId).stream().map(Follow::getFollower));
+        List<User> followers = FollowListUserSorterFactory.create(order).sort(followersStream(sellerId));
 
         return FollowersResponse.builder()
                 .sellerId(sellerId)
@@ -62,7 +62,7 @@ public class FollowService {
 
     public FollowedResponse followed(Long userId, String order) throws UserNotFound {
         User user = userService.findById(userId);
-        List<User> followed = FollowListUserSorterFactory.create(order).sort(followedStream(userId));
+        List<Seller> followed = FollowListUserSorterFactory.create(order).sort(followedStream(userId));
 
         return FollowedResponse.builder()
                 .userId(userId)
@@ -79,7 +79,10 @@ public class FollowService {
         return followedStream(userId).map(User::getId).collect(Collectors.toList());
     }
 
-    private Stream<User> followedStream(Long userId) {
+    private Stream<User> followersStream(Long sellerId) {
+        return findAllByFollowedId(sellerId).stream().map(Follow::getFollower);
+    }
+    private Stream<Seller> followedStream(Long userId) {
         return findAllByFollowerId(userId).stream().map(Follow::getFollowed);
     }
     private Optional<Follow> findByFollowerIdAndFollowedId(Long followerId, Long followedId) {

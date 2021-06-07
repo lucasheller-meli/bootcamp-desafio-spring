@@ -1,6 +1,6 @@
 package com.challenge.dtos;
 
-import com.challenge.entities.User;
+import com.challenge.entities.Seller;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,5 +11,5 @@ import java.util.List;
 public class FollowedResponse {
     private final Long userId;
     private final String userName;
-    private final List<User> followed;
+    private final List<Seller> followed;
 }

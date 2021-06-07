@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public interface FollowListUserSorter {
-    List<User> sort(Stream<User> users);
+    <E extends User> List<E> sort(Stream<E> elements);
 }
