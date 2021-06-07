@@ -66,8 +66,7 @@ public class PublicationController {
     public ResponseEntity<List<PublicationResponse>> listPublicationByUserId(@PathVariable(value = "userId") Integer userId,
                                                                              @RequestParam(value = "hasPromo", required = false, defaultValue = "false") Boolean hasPromo,
                                                                              @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-                                                                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-                                                                             @RequestParam(value = "direction", required = false, defaultValue = "DESC") Sort.Direction direction) {
+                                                                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
 
         return ResponseEntity.ok(publicationService.findAll(userId, hasPromo, page,pageSize));
     }
