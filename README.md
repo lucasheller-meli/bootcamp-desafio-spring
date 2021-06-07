@@ -5,14 +5,14 @@
 ##Dependências
 - Gradle 7.0.2
 - Java 11
-- Banco de dados MySQL 8.0.19
+- H2 Database
 
 #Instruções para execução local do projeto
 ### Requisistos mínimos
-- Docker
 - Java 11
+- Gradle
 
-### Subir containers das dependências
-``docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=challenge -d mysql:8.0.19``
+### Buildando o projeto
+Para buildar o projeto é necessario utilizar o comando:
 
-**TODO**
+``./gradlew clean build``
