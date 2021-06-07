@@ -10,10 +10,10 @@ public interface FollowService {
 
     UserCountFollowersResponse countFollowers(Integer userId);
 
-    UserFollowersResponse listFollowers(Integer userId);
+    UserFollowersResponse listFollowers(Integer userId, String orderBy);
 
-    UserFollowedResponse listFollowed(Integer userId);
+    UserFollowedResponse listFollowed(Integer userId, String orderBy);
 
-
+    void unfollowSeller(Integer userUnfollowing, Integer userUnfollowed);
 
 }

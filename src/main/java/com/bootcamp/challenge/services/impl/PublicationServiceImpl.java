@@ -20,9 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -63,8 +61,8 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public FollowedPublicationResponse findAllProductsFromFollowed(Integer userId, int page, int pageSize, String orderBy, Sort.Direction direction) {
         final UserEntity userEntity = userService.findById(userId);
-        final UserFollowedResponse userFollowed = followService.listFollowed(userEntity.getId());
-        List<Integer> idsFolloweds = userFollowed.getFollowedUsers().stream().map(UserResponse::getId).collect(Collectors.toList());
+        final UserFollowedResponse userFollowed = followService.listFollowed(userEntity.getId(), "asc");
+        final List<Integer> idsFolloweds = userFollowed.getFollowedUsers().stream().map(UserResponse::getId).collect(Collectors.toList());
         final PageRequest pageable = PageRequest.of(page, pageSize, Sort.by(direction, orderBy));
 
 

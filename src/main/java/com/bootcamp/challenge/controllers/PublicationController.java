@@ -1,6 +1,7 @@
 package com.bootcamp.challenge.controllers;
 
 import com.bootcamp.challenge.controllers.request.PublicationRequest;
+import com.bootcamp.challenge.controllers.response.FollowedPublicationResponse;
 import com.bootcamp.challenge.services.PublicationService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -35,23 +36,14 @@ public class PublicationController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping
-    public ResponseEntity<Void> listPublication(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
-                                                @RequestParam(value = "pageSize",required = false,defaultValue = "10") int pageSize,
-                                                @RequestParam(value = "orderBy",required = false,defaultValue = "createDate") String orderBy,
-                                                @RequestParam(value = "direction",required = false, defaultValue = "DESC") Sort.Direction direction) {
-        publicationService.findAll(page,pageSize,orderBy,direction);
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping("/followed/{userId}")
-    public ResponseEntity<Void> listPublicationOfMyFollowedSellers(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
-                                                                   @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-                                                                   @RequestParam(value = "orderBy", required = false, defaultValue = "createDate") String orderBy,
-                                                                   @RequestParam(value = "direction", required = false, defaultValue = "DESC") Sort.Direction direction,
-                                                                   @PathVariable(value = "userId") String userId) {
-        publicationService.findAll(page,pageSize,orderBy,direction);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<FollowedPublicationResponse> listPublicationOfMyFollowedSellers(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                                                                          @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+                                                                                          @RequestParam(value = "orderBy", required = false, defaultValue = "createDate") String orderBy,
+                                                                                          @RequestParam(value = "direction", required = false, defaultValue = "DESC") Sort.Direction direction,
+                                                                                          @PathVariable(value = "userId") Integer userId) {
+
+        return ResponseEntity.ok(publicationService.findAllProductsFromFollowed(userId,page,pageSize,orderBy,direction));
     }
 
 

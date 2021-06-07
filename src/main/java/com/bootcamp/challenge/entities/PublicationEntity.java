@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "publication")
@@ -49,6 +50,10 @@ public class PublicationEntity {
 
     @UpdateTimestamp
     private LocalDateTime updateDate;
+
+    private Boolean hasPromo;
+
+    private BigDecimal discount;
 
 
 }
