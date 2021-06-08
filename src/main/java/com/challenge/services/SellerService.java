@@ -2,6 +2,7 @@ package com.challenge.services;
 
 import com.challenge.dtos.CountFollowDTO;
 import com.challenge.dtos.FollowDTO;
+import com.challenge.entities.Product;
 import com.challenge.entities.Seller;
 import com.challenge.entities.User;
 import com.challenge.exceptions.SellerNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,10 +25,15 @@ public class SellerService {
     private final UserService userService;
 
 
+
     public SellerService(SellerRepository sellerRepository, UserRepository userRepository, UserService userService) {
         this.sellerRepository = sellerRepository;
         this.userRepository = userRepository;
         this.userService = userService;
+    }
+
+    public List<Seller> findAllSeller() {
+        return sellerRepository.findAll();
     }
 
     public void follow(Long userId, Long sellerId) throws UserNotFoundException, SellerNotFoundException {

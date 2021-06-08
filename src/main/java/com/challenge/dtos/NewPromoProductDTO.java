@@ -1,31 +1,18 @@
-package com.challenge.entities;
-
+package com.challenge.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDate;
-
-
 @Data
-@Entity
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+@Builder
+public class NewPromoProductDTO {
     private Long idPost;
     private Long sellerId;
-    private LocalDate date;
+    private String date;
     private String productName;
     private String type;
     private String brand;
@@ -35,6 +22,5 @@ public class Product {
     private Double price;
     private Boolean hasPromo;
     private Double discount;
-
 
 }

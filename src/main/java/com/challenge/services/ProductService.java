@@ -1,7 +1,6 @@
 package com.challenge.services;
 
-import com.challenge.dtos.ListPostDTO;
-import com.challenge.dtos.NewProductDTO;
+import com.challenge.dtos.*;
 import com.challenge.entities.Product;
 
 import com.challenge.entities.Seller;
@@ -54,6 +53,8 @@ public class ProductService {
                 .notes(newProductDTO.getNotes())
                 .category(newProductDTO.getCategory())
                 .price(newProductDTO.getPrice())
+                .hasPromo(false)
+                .discount(0.0)
                 .build();
 
 
@@ -76,9 +77,54 @@ public class ProductService {
          }
 
         return ListPostDTO.builder()
-            .userId(user.getUserId())
-            .userName(user.getUserName())
+            .id(user.getUserId())
+            .name(user.getUserName())
             .list(listPost.stream().filter(post -> post.getDate().isAfter(LocalDate.now().minusWeeks(WEEKS))).collect(Collectors.toList()))
             .build();
+    }
+
+    public void newPromoPost(NewPromoProductDTO newPromoProductDTO) throws SellerNotFoundException{
+        Seller seller = sellerRepository.findById(newPromoProductDTO.getSellerId()).orElseThrow(SellerNotFoundException::new);
+
+        final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = LocalDate.parse(newPromoProductDTO.getDate(), dtf);
+
+        Product post = Product.builder()
+                .idPost(newPromoProductDTO.getIdPost())
+                .sellerId(seller.getSellerId())
+                .date(date)
+                .productName(newPromoProductDTO.getProductName())
+                .type(newPromoProductDTO.getType())
+                .brand(newPromoProductDTO.getBrand())
+                .color(newPromoProductDTO.getColor())
+                .notes(newPromoProductDTO.getNotes())
+                .category(newPromoProductDTO.getCategory())
+                .price(newPromoProductDTO.getPrice())
+                .hasPromo(newPromoProductDTO.getHasPromo())
+                .discount(newPromoProductDTO.getDiscount())
+                .build();
+
+
+        productRepository.save(post);
+    }
+
+    public CountPromoPostDTO countPromoPost(Long sellerId)  throws SellerNotFoundException{
+        Seller seller = sellerRepository.findById(sellerId).orElseThrow(SellerNotFoundException::new);
+
+        return CountPromoPostDTO.builder()
+                .id(seller.getSellerId())
+                .name(seller.getSellerName())
+                .countPromoProducts(productRepository.findAllBySellerIdAndHasPromo(sellerId, true).size())
+                .build();
+    }
+
+    public ListPostDTO listPostPromoSeller(Long sellerId) throws SellerNotFoundException {
+        Seller seller = sellerRepository.findById(sellerId).orElseThrow(SellerNotFoundException::new);
+
+        return ListPostDTO.builder()
+                .id(seller.getSellerId())
+                .name(seller.getSellerName())
+                .list(productRepository.findAllBySellerIdAndHasPromo(sellerId, true))
+                .build();
     }
 }

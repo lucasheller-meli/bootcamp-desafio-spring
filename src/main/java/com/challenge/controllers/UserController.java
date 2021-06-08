@@ -2,6 +2,7 @@ package com.challenge.controllers;
 
 import com.challenge.dtos.CountFollowDTO;
 import com.challenge.dtos.FollowDTO;
+import com.challenge.entities.Seller;
 import com.challenge.entities.User;
 import com.challenge.exceptions.SellerNotFoundException;
 import com.challenge.exceptions.UserNotFoundException;
@@ -24,6 +25,11 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
         return ResponseEntity.ok(userService.findAll());
+    }
+
+    @GetMapping("/sellers")
+    public ResponseEntity<List<Seller>> findAllSeller() {
+        return ResponseEntity.ok(sellerService.findAllSeller());
     }
 
 

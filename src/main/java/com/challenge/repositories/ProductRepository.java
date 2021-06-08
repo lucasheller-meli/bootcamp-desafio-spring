@@ -12,4 +12,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllBySellerIdInOrderByDateAsc(Set<Long> idSellers);
     List<Product> findAllBySellerIdInOrderByDateDesc(Set<Long> idSellers);
 
+    List<Product> findAllBySellerIdAndHasPromo(Long idSeller, Boolean hasPromo);
+
+
 }

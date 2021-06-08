@@ -22,9 +22,6 @@ public class DbPopulate implements CommandLineRunner {
     private final ProductRepository productRepository;
 
 
-
-
-
     public void run(String... args) {
         User rodrigo = User.builder().userName("Rodrigo").build();
         User marianne = User.builder().userName("Marianne").build();
@@ -35,7 +32,7 @@ public class DbPopulate implements CommandLineRunner {
         Seller pedro = Seller.builder().sellerName("Pedro").build();
         Seller jose = Seller.builder().sellerName("José").build();
         Seller maria = Seller.builder().sellerName("Maria").build();
-        Product teste = Product.builder().productName("xuaxua").build();
+        Product teste = Product.builder().productName("Teste - Cadeira Gamer").build();
 
         userRepository.saveAll(List.of(
                 rodrigo, marianne, thamirez, lucas, gabriel
