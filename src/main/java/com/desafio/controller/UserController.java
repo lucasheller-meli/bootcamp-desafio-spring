@@ -4,7 +4,6 @@ import com.desafio.dtos.FollowDTO;
 import com.desafio.dtos.QuantityDTO;
 import com.desafio.exceptions.IdNotFound;
 import com.desafio.exceptions.NotFollow;
-import com.desafio.exceptions.NotSeller;
 import com.desafio.service.SellerService;
 import com.desafio.service.UserService;
 import org.springframework.http.ResponseEntity;

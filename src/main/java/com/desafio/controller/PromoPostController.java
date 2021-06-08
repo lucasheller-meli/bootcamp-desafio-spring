@@ -1,6 +1,5 @@
 package com.desafio.controller;
 
-import com.desafio.dtos.ListPostDTO;
 import com.desafio.dtos.ListPromoPostDTO;
 import com.desafio.dtos.PromoPostDTO;
 import com.desafio.dtos.QuantityDTO;
@@ -11,7 +10,6 @@ import com.desafio.service.PromoPostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/products")

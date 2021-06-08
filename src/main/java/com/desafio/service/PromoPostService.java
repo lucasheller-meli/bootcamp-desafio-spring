@@ -3,14 +3,12 @@ package com.desafio.service;
 import com.desafio.dtos.ListPromoPostDTO;
 import com.desafio.dtos.PromoPostDTO;
 import com.desafio.dtos.QuantityDTO;
-import com.desafio.entities.Posters;
 import com.desafio.entities.PromoPost;
 import com.desafio.entities.Seller;
 import com.desafio.exceptions.IdNotFound;
 import com.desafio.exceptions.NotSeller;
 import com.desafio.repository.PromoPostRepository;
 import com.desafio.repository.SellerRepository;
-import com.desafio.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
