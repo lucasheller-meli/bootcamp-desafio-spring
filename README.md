@@ -10,9 +10,11 @@ H2 Database </br>
 - Java 11
 - Maven
 
+### Collection Postman
 
+https://www.getpostman.com/collections/3bdc29a8664b52cbcd6c
 
-### Auxiliares
+### Endpoints Auxiliares
 
 - GET http://localhost:8080/users
 
@@ -28,7 +30,7 @@ H2 Database </br>
   
 2. **US0002** - Obter o resultado do número de usuários que seguem um determinado
 vendedor.
-  - GET http://localhost:8080/users/{selleId}/followers/count/
+  - GET http://localhost:8080/users/{selledId}/followers/count/
   
 3. **US0003** - Obter uma lista de todos os usuários que seguem um determinado vendedor
 (quem me segue?)
@@ -48,7 +50,7 @@ publicações recentes primeiro).
 
 7. **US0007** - Ser capaz de realizar a ação de “Deixar de seguir” (parar de seguir) um
 determinado vendedor.
-  - POST http://localhost:8080/{userId}/unfollow/{sellerId}
+  - POST http://localhost:8080/users/{userId}/unfollow/{sellerId}
 
 8. **US0008** - Ordem alfabética crescente e decrescente (usuário , vendedor)
   - GET http://localhost:8080/users/{userId}/followed/list?order=name_asc
@@ -65,7 +67,7 @@ determinado vendedor.
 
 
 11. **US0011** - Obter a quantidade de produtos promocionais de um vendedor específico
-  - GET http://localhost:8080/products/{sellerId}/countPromo
+  - GET http://localhost:8080/products/{sellerId}/countpromo
 
 12. **US0012** - Obter uma lista de todos os produtos promocionais de um vendedor específico
   - GET http://localhost:8080/products/{sellerId}/list
