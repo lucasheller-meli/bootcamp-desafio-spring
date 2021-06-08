@@ -68,7 +68,7 @@ determinado vendedor.
   - GET http://localhost:8080/products/{sellerId}/countPromo
 
 12. **US0012** - Obter uma lista de todos os produtos promocionais de um vendedor específico
-  - GET http://localhost:8080/products/{userId}/list
+  - GET http://localhost:8080/products/{sellerId}/list
   
 <br />
 
