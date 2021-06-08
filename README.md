@@ -19,7 +19,9 @@ Os arquivos para a realização dos testes utilizando o Postman estão contidos 
 ##Arquivos para teste:
 Os arquivos necessarios para a realização dos testes da API, utilizando o Postman, 
 encontram-se em formato JSON contindos no modulo do projeto. 
-O arquivo tambem pode ser visualizado pelo link https://www.getpostman.com/collections/82f5bd5523ea4f8bbfaf. 
+
+O arquivo tambem pode ser visualizado pelo link 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/82f5bd5523ea4f8bbfaf)
 
 O arquivo está nomeado como DesafioSpringboot.postman_collection.json, sendo divido nos seguintes endpoints:
 
