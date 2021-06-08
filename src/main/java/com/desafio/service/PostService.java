@@ -63,6 +63,8 @@ public class PostService {
             listPost = postRepository.findAllByIdSellerInOrderByDateAsc(setSeller);
         } else if (order.equals("date_desc")){
             listPost = postRepository.findAllByIdSellerInOrderByDateDesc(setSeller);
+        } else{
+            listPost = postRepository.findAllByIdSellerInOrderByIdPost(setSeller);
         }
 
         //filtro pelas duas ultimas semanas

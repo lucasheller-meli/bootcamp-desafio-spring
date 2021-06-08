@@ -9,42 +9,59 @@ Java 11.0
 
 H2 Database
 
-##Teste
+## Teste
 
-Os usuários e vendores já estão pré-cadastrados e podem ser visualizados no arquivo PopulateDataBase.
+Os usuários e vendores já estão cadastrados e podem ser visualizados no arquivo PopulateDataBase.
 
 Os arquivos para a realização dos testes utilizando o Postman estão contidos no projeto e serão apresentados na seção **Arquivos para teste**.
-
-Para a realização do teste da API, deve-se garantir que o endpoint follow seja realizado para que se possa 
-executar os demais endpoints de User e Seller.
-Em seguida, realizar o cadastro dos posts para que se possa executar os demais endpoints.
 
 
 ##Arquivos para teste:
 Os arquivos necessarios para a realização dos testes da API, utilizando o Postman, 
-encontram-se em formato JSON contindos no modulo do projeto.
-São eles:
-- Product:
+encontram-se em formato JSON contindos no modulo do projeto. 
+O arquivo tambem pode ser visualizado pelo link https://www.getpostman.com/collections/82f5bd5523ea4f8bbfaf. 
+
+O arquivo está nomeado como DesafioSpringboot.postman_collection.json, sendo divido nos seguintes endpoints:
+
+- US0001: responsavel por realizar o follow entre o usuario e o vendedor, para isso deve informar o ID do usuario (idUser) e o ID do vendedor (idSeller).
+  A URL segue o seguinte padrão: /users/{idUser}/follow/{idSeller}.
   
-Contêm os endpoints para realizar o cadastro dos Posts dos vendodores (ex. product1) 
-e solicitar os post em ordem cronologica ascedente (productList/1/date_asc) e 
-descendente (productList/1/date_asc) dos vendedores que um determinado usuário segue.
-
-- Seller: 
   
-Contêm os endpoints para solicitar o número de seguidores que um determinado vendedor tem (followrs/1/count)
-e as listas de seguidores que um determinado vendedor tem em ordem ascedente (followers/1/name_asc) e descendente (followers/1/name_desc).
+- US0002: solicita o numero de seguidores que um determinado vendedor tem, para isso se deve informar o ID do vendedor. A URL segue o seguinte padrao: 
+  /users/{idSeller}/followers/count. 
+  
 
-- User: 
+- US0003: solicita a lista de usuarios que seguem um determinado vendedor, para isso se deve informar o ID do vendedor. A URL segue o seguinte padrão: 
+  /users/{idSeller}/followers/list?order=name_desc. Quando o order for igual a "name_asc" sera informado a lista em ordem alfabetica ascedente e 
+  descendente quando for informado "name_desc", caso não segue informado a order, a listagem será ordenado numericamente pelo ID dos usuarios.
+  
 
-Contêm os endpoints para realizar follow, no qual um usuario segue um vendedor (follow 1/2), o unfollow (unfollow1/3) 
-e solicita a lista de seguindo (vendedores que o usuario segue) em ordem alfabetica ascedente (followin/1/name_asc) e descentente (followin/1/name_asc). 
+- US0004: US0003: solicita a lista de vendedores que um determinado usuario segue, para isso se deve informar o ID do usuario. A URL segue o seguinte padrão
+  : /users/1/followed/list?order=name_asc. Quando o order for igual a "name_asc" sera informado a lista em ordem alfabetica ascedente e
+  descendente quando for informado "name_desc", caso não segue informado a order, a listagem será ordenado numericamente pelo ID dos vendedores.
 
-- PromoProduct:
 
-Contêm os endpoints para realizar os cadastros do produtos promocional (promoProduct1), o solicitação de quantos Post promocionais um determinado vendedor 
-fez (promoProductList/1/count) e a lista desses posts (promoProductList/1).
+- US0005: realiza o cadastro de uma nova publicação. Para isso, é informado no payload as informações da publicação, bem como o ID do vendedor que deseja realizar 
+a publicação. A URL segue o seguinte padrão: /products/newpost.
 
-**Obs. os números contidos nos endpoints são equivalentes aos IDs de usuario e vendedor, dependendo do objetivo de cada um.**
 
+- US0006: solitica a lista de publicações que dos vendedores que um determinado usuario segue, para isso se deve informar o ID do usuario. A URL segue 
+  o seguinte padrão:/products/followed/{idUser}/list?order=date_desc. Quando o order for igual a "date_asc" sera informado a lista em ordem cronologica ascedente e
+  descendente quando for informado "date_desc", caso não segue informado a order, a listagem será ordenado numericamente pelo ID das publicaçoes.
+
+
+- US0007: realizar o unfollow entre o usuario e o vendedor, para isso deve informar o ID do usuario (idUser) e o ID do vendedor (idSeller).
+  A URL segue o seguinte padrão: /users/{idUser}/unfollow/{idSeller}.
+
+
+- US0010: realizar o cadastro de uma publicação promocional. Para isso, é informado no payload as informações da publicação, bem como o ID do vendedor que deseja realizar
+  a publicação. A URL segue o seguinte padrão: /products/newpromopost. 
+
+
+- US0011: solicita a quantidade de publicações promocionais realizadas por um determinado vendedor, para isso se deve informar o ID do vendedor.
+A URL segue o seguinte padrão: /products/{idSeller}/countPromo.
+
+
+- US0012: solicita a lista de publicações promocionais realizadas por um determinado vendedor, para isso se deve informar o ID do vendedor.
+  A URL segue o seguinte padrão: /products/{idSeller}/list.
 

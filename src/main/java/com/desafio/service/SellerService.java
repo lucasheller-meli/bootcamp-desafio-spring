@@ -34,15 +34,15 @@ public class SellerService {
     public FollowDTO listFollowers(Long idSeller, String order) throws IdNotFound{
         sellerRepository.findById(idSeller).orElseThrow(() -> new IdNotFound(idSeller));
 
-        Map<Long, String> mapFolloers = sellerRepository.getById(idSeller).getFollowers();
+        Map<Long, String> mapFollowers = sellerRepository.getById(idSeller).getFollowers();
 
         if(order!= null){
-            mapFolloers= userService.sortByValue(mapFolloers, order);
+            mapFollowers= userService.sortByValue(mapFollowers, order);
         }
 
         return FollowDTO.builder().name(sellerRepository.getById(idSeller).getNameSaler())
                 .id(sellerRepository.getById(idSeller).getIdSaler())
-                .list(mapFolloers)
+                .list(mapFollowers)
                 .build();
     }
 
