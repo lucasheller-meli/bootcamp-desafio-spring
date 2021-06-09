@@ -16,3 +16,8 @@
 Para buildar o projeto é necessario utilizar o comando:
 
 ``./gradlew clean build``
+
+###Informacoes sobre o projeto 
+Como alguns endpoints foram alterados, como nome de variaveis e path, foi colocado o swagger para facilitar a visualizacao das requests/responses de cada endpoint
+Para acessar o swagger é necessario acessar o link:
+``http://localhost:8080/swagger-ui.html``
